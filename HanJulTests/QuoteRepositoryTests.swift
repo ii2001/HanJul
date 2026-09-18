@@ -16,4 +16,12 @@ final class QuoteRepositoryTests: XCTestCase {
             XCTAssertEqual(error as? QuoteRepository.Error, .empty)
         }
     }
+
+    func test_bundledCatalogContains300UniqueQuotes() throws {
+        let quotes = try QuoteRepository().quotes
+
+        XCTAssertEqual(quotes.count, 300)
+        XCTAssertEqual(Set(quotes.map(\.id)).count, 300)
+        XCTAssertEqual(Set(quotes.map(\.text)).count, 300)
+    }
 }
