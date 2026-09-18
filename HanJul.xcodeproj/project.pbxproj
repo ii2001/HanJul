@@ -186,11 +186,6 @@
 				TargetAttributes = {
 					000000000000000100000000 = {
 						CreatedOnToolsVersion = 26.3;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups = {
-								enabled = 1;
-							};
-						};
 					};
 					300000000000000000000100 = {
 						CreatedOnToolsVersion = 26.3;
@@ -198,11 +193,6 @@
 					};
 					400000000000000000000100 = {
 						CreatedOnToolsVersion = 26.3;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups = {
-								enabled = 1;
-							};
-						};
 					};
 				};
 			};
@@ -412,7 +402,6 @@
 		000000000000000111000000 /* Debug configuration for PBXNativeTarget "HanJul" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Config/HanJul.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
@@ -451,7 +440,6 @@
 		000000000000000112000000 /* Release configuration for PBXNativeTarget "HanJul" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Config/HanJul.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
@@ -527,7 +515,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_ENTITLEMENTS = Config/HanJulWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -552,7 +539,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_ENTITLEMENTS = Config/HanJulWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;

@@ -2,7 +2,6 @@ import AppKit
 import OSLog
 import SwiftData
 import SwiftUI
-import WidgetKit
 
 struct ContentView: View {
     private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "HanJul", category: "app")
@@ -13,8 +12,7 @@ struct ContentView: View {
     @AppStorage("notificationHour") private var notificationHour = 9
     @AppStorage("notificationMinute") private var notificationMinute = 0
     @AppStorage("analyticsEnabled") private var analyticsEnabled = false
-    @AppStorage(QuoteArtwork.preferenceKey, store: QuoteArtwork.defaults)
-    private var artworkRawValue = QuoteArtwork.daily.rawValue
+    @AppStorage(QuoteArtwork.preferenceKey) private var artworkRawValue = QuoteArtwork.daily.rawValue
 
     private let quote: Quote?
     private let loadError: String?
@@ -132,9 +130,6 @@ struct ContentView: View {
                 ForEach(QuoteArtwork.allCases) { artwork in
                     Text(artwork.title).tag(artwork.rawValue)
                 }
-            }
-            .onChange(of: artworkRawValue) {
-                WidgetCenter.shared.reloadTimelines(ofKind: "HanJulWidget")
             }
 
             Text("명언 내용과 개인 식별 정보는 전송하지 않습니다.")

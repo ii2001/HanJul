@@ -10,9 +10,7 @@ enum QuoteArtwork: String, CaseIterable, Identifiable, Sendable {
     case winter
     case hidden
 
-    static let appGroupID = "group.com.ii2001.HanJul"
     static let preferenceKey = "quoteArtwork"
-    static let defaults = UserDefaults(suiteName: appGroupID) ?? .standard
 
     private static let imageNames = [
         "ArtworkDawn",
@@ -47,9 +45,5 @@ enum QuoteArtwork: String, CaseIterable, Identifiable, Sendable {
         default:
             return "Artwork\(rawValue.capitalized)"
         }
-    }
-
-    static var selected: Self {
-        Self(rawValue: defaults.string(forKey: preferenceKey) ?? "") ?? .daily
     }
 }
