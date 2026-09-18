@@ -6,14 +6,66 @@
 	objectVersion = 90;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		400000000000000000000180 /* HanJulWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 400000000000000000000120 /* HanJulWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		300000000000000000000150 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = HanJul;
+		};
+		400000000000000000000150 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 400000000000000000000100;
+			remoteInfo = HanJulWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		400000000000000000000170 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				400000000000000000000180 /* HanJulWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* HanJul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HanJul.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		300000000000000000000120 /* HanJulTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HanJulTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		400000000000000000000120 /* HanJulWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HanJulWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		000000000000000000000010 /* HanJul */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = HanJul;
+			sourceTree = "<group>";
+		};
+		200000000000000000000010 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		300000000000000000000010 /* HanJulTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HanJulTests;
+			sourceTree = "<group>";
+		};
+		400000000000000000000010 /* Widget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Widget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -24,6 +76,20 @@
 			files = (
 			);
 		};
+		300000000000000000000130 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		400000000000000000000130 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -31,6 +97,9 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000010 /* HanJul */,
+				200000000000000000000010 /* Shared */,
+				300000000000000000000010 /* HanJulTests */,
+				400000000000000000000010 /* Widget */,
 				000000000000000000000020 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -39,6 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000120 /* HanJul.app */,
+				300000000000000000000120 /* HanJulTests.xctest */,
+				400000000000000000000120 /* HanJulWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,16 +124,63 @@
 				000000000000000120000000 /* Sources */,
 				000000000000000130000000 /* Frameworks */,
 				000000000000000140000000 /* Resources */,
+				400000000000000000000170 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			fileSystemSynchronizedGroups = (
 				000000000000000000000010 /* HanJul */,
+				200000000000000000000010 /* Shared */,
 			);
 			name = HanJul;
 			productName = HanJul;
 			productReference = 000000000000000000000120 /* HanJul.app */;
 			productType = "com.apple.product-type.application";
+			dependencies = (
+				400000000000000000000160 /* PBXTargetDependency */,
+			);
+		};
+		300000000000000000000100 /* HanJulTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 300000000000000000000110 /* Build configuration list for PBXNativeTarget "HanJulTests" */;
+			buildPhases = (
+				300000000000000000000121 /* Sources */,
+				300000000000000000000130 /* Frameworks */,
+				300000000000000000000140 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				300000000000000000000160 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				300000000000000000000010 /* HanJulTests */,
+			);
+			name = HanJulTests;
+			productName = HanJulTests;
+			productReference = 300000000000000000000120 /* HanJulTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		400000000000000000000100 /* HanJulWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 400000000000000000000110 /* Build configuration list for PBXNativeTarget "HanJulWidget" */;
+			buildPhases = (
+				400000000000000000000121 /* Sources */,
+				400000000000000000000130 /* Frameworks */,
+				400000000000000000000140 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				200000000000000000000010 /* Shared */,
+				400000000000000000000010 /* Widget */,
+			);
+			name = HanJulWidget;
+			productName = HanJulWidget;
+			productReference = 400000000000000000000120 /* HanJulWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -75,6 +193,13 @@
 				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					000000000000000100000000 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					300000000000000000000100 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 000000000000000100000000;
+					};
+					400000000000000000000100 = {
 						CreatedOnToolsVersion = 26.3;
 					};
 				};
@@ -94,6 +219,8 @@
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* HanJul */,
+				300000000000000000000100 /* HanJulTests */,
+				400000000000000000000100 /* HanJulWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -104,6 +231,20 @@
 			files = (
 			);
 		};
+		300000000000000000000140 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		400000000000000000000140 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -112,7 +253,26 @@
 			files = (
 			);
 		};
+		300000000000000000000121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		400000000000000000000121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		300000000000000000000160 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = 000000000000000100000000 /* HanJul */; targetProxy = 300000000000000000000150 /* PBXContainerItemProxy */; };
+		400000000000000000000160 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = 400000000000000000000100 /* HanJulWidget */; targetProxy = 400000000000000000000150 /* PBXContainerItemProxy */; };
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		000000000000000011000000 /* Debug configuration for PBXProject "HanJul" */ = {
@@ -171,7 +331,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.6.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -235,7 +395,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.6.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PROJECT_UNIQUE_VALUE = MF17HVEO;
@@ -253,9 +413,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -269,18 +431,17 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.$(PROJECT_UNIQUE_VALUE:identifier).$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ii2001.HanJul;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
-				SDKROOT = auto;
+				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Debug;
 		};
@@ -290,9 +451,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -306,18 +469,101 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.$(PROJECT_UNIQUE_VALUE:identifier).$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ii2001.HanJul;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
-				SDKROOT = auto;
+				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Release;
+		};
+		300000000000000000000111 /* Debug configuration for PBXNativeTarget "HanJulTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ii2001.HanJulTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HanJul.app/Contents/MacOS/HanJul";
+			};
+			name = Debug;
+		};
+		300000000000000000000112 /* Release configuration for PBXNativeTarget "HanJulTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ii2001.HanJulTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HanJul.app/Contents/MacOS/HanJul";
+			};
+			name = Release;
+		};
+		400000000000000000000111 /* Debug configuration for PBXNativeTarget "HanJulWidget" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/HanJulWidget-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ii2001.HanJul.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		400000000000000000000112 /* Release configuration for PBXNativeTarget "HanJulWidget" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/HanJulWidget-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ii2001.HanJul.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -338,6 +584,24 @@
 				000000000000000111000000 /* Debug configuration for PBXNativeTarget "HanJul" */,
 				000000000000000112000000 /* Release configuration for PBXNativeTarget "HanJul" */,
 			);
+			defaultConfigurationName = Release;
+		};
+		300000000000000000000110 /* Build configuration list for PBXNativeTarget "HanJulTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				300000000000000000000111 /* Debug configuration for PBXNativeTarget "HanJulTests" */,
+				300000000000000000000112 /* Release configuration for PBXNativeTarget "HanJulTests" */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		400000000000000000000110 /* Build configuration list for PBXNativeTarget "HanJulWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				400000000000000000000111 /* Debug configuration for PBXNativeTarget "HanJulWidget" */,
+				400000000000000000000112 /* Release configuration for PBXNativeTarget "HanJulWidget" */,
+			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */

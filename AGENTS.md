@@ -4,12 +4,12 @@
 
 HanJul is a Korean macOS SwiftUI menu-bar app. The Xcode project is `HanJul.xcodeproj`; application code lives in `HanJul/`:
 
-- `Domain/`: value types such as `Quote`.
-- `Data/`: bundled-data loading and future persistence adapters.
-- `Services/`: focused system and application services.
-- `Resources/`: bundled JSON and other non-asset resources.
+- `HanJul/`: app-only UI, SwiftData models, and system services.
+- `Shared/`: quote model, JSON loading, daily selection, and resources shared by app and widget.
+- `Widget/`: WidgetKit extension source.
+- `supabase/migrations/`: reviewed analytics schema migrations.
 - `Assets.xcassets/`: colors and image assets.
-- `HanJulTests/`: unit tests; add this directory to a macOS unit-test target before running it.
+- `HanJulTests/`: XCTest unit tests.
 
 Keep feature UI close to its feature. Add shared layers only after two features need them.
 
@@ -25,7 +25,7 @@ xcodebuild test -project "HanJul.xcodeproj" -scheme "HanJul" \
   -destination 'platform=macOS'
 ```
 
-The test command requires a shared scheme containing the unit-test target. Use Xcode previews for layout checks, not as a substitute for unit tests.
+The shared scheme contains the unit-test target. Use Xcode previews for layout checks, not as a substitute for unit tests.
 
 ## Coding Style & Naming Conventions
 
@@ -42,3 +42,5 @@ Every commit message must use Gitmoji Conventional Commit format, for example `â
 ## Xcode Project Safety
 
 Do not hand-edit `project.pbxproj` unless explicitly requested. Add targets, signing, entitlements, App Groups, and capabilities through Xcode, and avoid committing `xcuserdata/` changes.
+
+Never add Supabase secret or `service_role` keys to the app. The bundled Publishable Key is constrained by RLS; anonymous analytics must remain opt-in and must not include quote text, favorites, or persistent user identifiers.
