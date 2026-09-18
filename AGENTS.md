@@ -43,4 +43,4 @@ Every commit message must use Gitmoji Conventional Commit format, for example `â
 
 Automate in-scope target, entitlement, and capability settings when needed. Keep `project.pbxproj` edits minimal, validate them with `xcodebuild`, never guess a signing team, and avoid committing `xcuserdata/` changes.
 
-Never add Supabase secret or `service_role` keys to the app. The bundled Publishable Key is constrained by RLS; anonymous analytics must remain opt-in and must not include quote text, favorites, or persistent user identifiers.
+Never add Supabase secret or `service_role` keys to the app. The bundled Publishable Key is constrained by RLS. Analytics defaults to on but must remain user-disableable; send only allowlisted event names and the random `anonymous_install_id`, never names, email addresses, quote text, or favorites.

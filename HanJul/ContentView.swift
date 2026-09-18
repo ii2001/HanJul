@@ -11,8 +11,9 @@ struct ContentView: View {
     @AppStorage("notificationEnabled") private var notificationEnabled = false
     @AppStorage("notificationHour") private var notificationHour = 9
     @AppStorage("notificationMinute") private var notificationMinute = 0
-    @AppStorage("analyticsEnabled") private var analyticsEnabled = false
+    @AppStorage(AnalyticsService.enabledKey) private var analyticsEnabled = true
     @AppStorage(QuoteArtwork.preferenceKey) private var artworkRawValue = QuoteArtwork.daily.rawValue
+    @StateObject private var musicPlayer = MusicPlayer()
 
     private let quote: Quote?
     private let loadError: String?
@@ -44,7 +45,7 @@ struct ContentView: View {
 
                     VStack(alignment: .leading, spacing: 12) {
                         Text(quote.text)
-                            .font(.title3.weight(.medium))
+                            .font(QuoteFont.font(size: 20))
                             .fixedSize(horizontal: false, vertical: true)
                             .accessibilityLabel("명언: \(quote.text)")
 
@@ -75,6 +76,31 @@ struct ContentView: View {
             } else {
                 Label(loadError ?? "알 수 없는 오류가 발생했습니다.", systemImage: "exclamationmark.triangle")
                     .foregroundStyle(.red)
+            }
+
+            Divider()
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text("오늘의 음악")
+                    .font(.headline)
+
+                HStack {
+                    Text(musicPlayer.trackTitle ?? "로컬 음원 파일을 추가해 주세요.")
+                        .lineLimit(1)
+                        .foregroundStyle(musicPlayer.trackTitle == nil ? .secondary : .primary)
+
+                    Spacer()
+
+                    Button {
+                        toggleMusic()
+                    } label: {
+                        Label(
+                            musicPlayer.isPlaying ? "일시정지" : "재생",
+                            systemImage: musicPlayer.isPlaying ? "pause.fill" : "play.fill"
+                        )
+                    }
+                    .disabled(musicPlayer.trackTitle == nil)
+                }
             }
 
             Divider()
@@ -132,7 +158,7 @@ struct ContentView: View {
                 }
             }
 
-            Text("명언 내용과 개인 식별 정보는 전송하지 않습니다.")
+            Text("무작위 설치 식별자와 이벤트 종류만 전송하며 이름, 이메일, 명언 내용은 전송하지 않습니다.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
@@ -208,6 +234,16 @@ struct ContentView: View {
     private func copy(_ quote: Quote) {
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString("\"\(quote.text)\" — \(quote.author)", forType: .string)
+    }
+
+    private func toggleMusic() {
+        if musicPlayer.isPlaying {
+            guard musicPlayer.pause() else { return }
+            Task { await AnalyticsService.track(.musicPause) }
+        } else {
+            guard musicPlayer.play() else { return }
+            Task { await AnalyticsService.track(.musicPlay) }
+        }
     }
 
     @MainActor

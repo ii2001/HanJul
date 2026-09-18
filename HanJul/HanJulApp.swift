@@ -1,8 +1,11 @@
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 @main struct HanJulApp: App {
     init() {
+        AnalyticsService.configure()
+        WidgetCenter.shared.reloadAllTimelines()
         Task { await AnalyticsService.track(.appOpen) }
     }
 

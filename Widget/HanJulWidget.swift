@@ -2,7 +2,7 @@ import AppIntents
 import SwiftUI
 import WidgetKit
 
-private enum WidgetArtwork: String, AppEnum {
+enum WidgetArtwork: String, AppEnum {
     case daily
     case dawn
     case moon
@@ -27,7 +27,7 @@ private enum WidgetArtwork: String, AppEnum {
     }
 }
 
-private struct HanJulConfiguration: WidgetConfigurationIntent {
+struct HanJulConfiguration: WidgetConfigurationIntent {
     static let title: LocalizedStringResource = "한줄 위젯 설정"
 
     @Parameter(title: "배경", default: .daily)
@@ -77,38 +77,58 @@ private struct HanJulProvider: AppIntentTimelineProvider {
 }
 
 private struct HanJulWidgetView: View {
+    @Environment(\.widgetFamily) private var family
+
     let entry: HanJulEntry
 
     var body: some View {
-        ZStack {
-            if let imageName = entry.artwork.imageName(for: entry.quote) {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 5) {
+                Image(systemName: "quote.opening")
+                Text("오늘의 한 줄")
+                    .font(.caption.weight(.semibold))
+            }
+            .foregroundStyle(.black.opacity(0.55))
+
+            Spacer(minLength: 0)
+
+            Text(entry.quote.text)
+                .font(quoteFont)
+                .lineLimit(family == .systemSmall ? 4 : 3)
+                .minimumScaleFactor(0.75)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Spacer(minLength: 0)
+
+            Text("— \(entry.quote.author)")
+                .font(.caption)
+                .foregroundStyle(.black.opacity(0.6))
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .foregroundStyle(.black.opacity(0.82))
+        .containerBackground(for: .widget) {
+            background
+        }
+    }
+
+    private var quoteFont: Font {
+        QuoteFont.font(size: family == .systemSmall ? 17 : 22)
+    }
+
+    @ViewBuilder
+    private var background: some View {
+        if let imageName = entry.artwork.imageName(for: entry.quote) {
+            ZStack {
                 Image(imageName)
                     .resizable()
                     .scaledToFill()
                     .accessibilityHidden(true)
 
-                Color.white.opacity(0.58)
+                Color.white.opacity(0.66)
             }
-
-            VStack(alignment: .leading, spacing: 8) {
-                Image(systemName: "quote.opening")
-                    .foregroundStyle(.black.opacity(0.55))
-
-                Text(entry.quote.text)
-                    .font(.headline)
-                    .lineLimit(4)
-
-                Spacer(minLength: 0)
-
-                Text(entry.quote.author)
-                    .font(.caption)
-                    .foregroundStyle(.black.opacity(0.6))
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            .foregroundStyle(.black.opacity(0.82))
+        } else {
+            Color(nsColor: .windowBackgroundColor)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-        .containerBackground(Color(nsColor: .windowBackgroundColor), for: .widget)
     }
 }
 
