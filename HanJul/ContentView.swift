@@ -13,18 +13,25 @@ struct ContentView: View {
     @AppStorage("notificationMinute") private var notificationMinute = 0
     @AppStorage(AnalyticsService.enabledKey) private var analyticsEnabled = true
     @AppStorage(QuoteArtwork.preferenceKey) private var artworkRawValue = QuoteArtwork.daily.rawValue
+    @AppStorage("dailyQuoteIndex") private var quoteIndex = 0
+    @AppStorage("dailyQuoteDay") private var storedQuoteDay = 0.0
     @StateObject private var musicPlayer = MusicPlayer()
 
-    private let quote: Quote?
+    private let dailyQuotes: [Quote]
+    private let quoteDay: Double
     private let loadError: String?
 
     init() {
+        quoteDay = Calendar.current.startOfDay(for: .now).timeIntervalSinceReferenceDate
         do {
             let repository = try QuoteRepository()
-            quote = DailyQuoteService(repository: repository).quote()
+            dailyQuotes = DailyQuoteService(repository: repository).quotes(
+                seed: AnalyticsService.anonymousInstallID().uuidString,
+                limit: 3
+            )
             loadError = nil
         } catch {
-            quote = nil
+            dailyQuotes = []
             loadError = "명언 데이터를 불러오지 못했습니다."
             Self.logger.error("Quote loading failed: \(error.localizedDescription, privacy: .public)")
         }
@@ -63,6 +70,20 @@ struct ContentView: View {
                                 copy(quote)
                             } label: {
                                 Label("복사", systemImage: "doc.on.doc")
+                            }
+
+                            Spacer()
+
+                            if quoteIndex + 1 < dailyQuotes.count {
+                                Button {
+                                    quoteIndex += 1
+                                } label: {
+                                    Label("다른 명언", systemImage: "arrow.right")
+                                }
+                            } else {
+                                Text("오늘 3개 완료")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
                             }
                         }
                         .buttonStyle(.borderless)
@@ -172,6 +193,16 @@ struct ContentView: View {
         }
         .padding(18)
         .frame(width: 360)
+        .onAppear {
+            if storedQuoteDay != quoteDay {
+                storedQuoteDay = quoteDay
+                quoteIndex = 0
+            }
+        }
+    }
+
+    private var quote: Quote? {
+        dailyQuotes.indices.contains(quoteIndex) ? dailyQuotes[quoteIndex] : dailyQuotes.first
     }
 
     private var artwork: QuoteArtwork {

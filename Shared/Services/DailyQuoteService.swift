@@ -10,11 +10,27 @@ struct DailyQuoteService: Sendable {
         self.calendar = calendar
     }
 
-    func quote(for date: Date = .now) -> Quote {
+    func quote(for date: Date = .now, seed: String = "") -> Quote {
+        quotes(for: date, seed: seed, limit: 1)[0]
+    }
+
+    func quotes(for date: Date = .now, seed: String, limit: Int) -> [Quote] {
         let components = calendar.dateComponents([.era, .year, .month, .day], from: date)
         let day = "\(components.era ?? 0)-\(components.year ?? 0)-\(components.month ?? 0)-\(components.day ?? 0)"
-        let digest = SHA256.hash(data: Data(day.utf8))
-        let value = digest.prefix(8).reduce(UInt64.zero) { ($0 << 8) | UInt64($1) }
-        return quotes[Int(value % UInt64(quotes.count))]
+        let dailySeed = seed.isEmpty ? day : "\(day)-\(seed)"
+        var selectedIndices = Set<Int>()
+
+        return (0..<min(max(limit, 0), quotes.count)).map { offset in
+            let selectionSeed = offset == 0 ? dailySeed : "\(dailySeed)-\(offset)"
+            let value = SHA256.hash(data: Data(selectionSeed.utf8))
+                .prefix(8)
+                .reduce(UInt64.zero) { ($0 << 8) | UInt64($1) }
+            var index = Int(value % UInt64(quotes.count))
+            while selectedIndices.contains(index) {
+                index = (index + 1) % quotes.count
+            }
+            selectedIndices.insert(index)
+            return quotes[index]
+        }
     }
 }

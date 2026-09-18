@@ -28,6 +28,19 @@ final class DailyQuoteServiceTests: XCTestCase {
         XCTAssertEqual(service.quote(for: date).id, "4")
     }
 
+    func test_returnsThreeUniqueQuotesPerInstallAndDay() throws {
+        let repository = try QuoteRepository(data: JSONEncoder().encode(quotes))
+        let service = DailyQuoteService(repository: repository)
+        let date = Date(timeIntervalSinceReferenceDate: 0)
+
+        let selected = service.quotes(for: date, seed: "install-a", limit: 3)
+
+        XCTAssertEqual(selected.count, 3)
+        XCTAssertEqual(Set(selected.map(\.id)).count, 3)
+        XCTAssertEqual(selected, service.quotes(for: date, seed: "install-a", limit: 3))
+        XCTAssertNotEqual(selected, service.quotes(for: date, seed: "install-b", limit: 3))
+    }
+
     func test_artworkSelectionIsDeterministic() {
         let quote = Quote(id: "same-quote", text: "명언", author: "작가")
 
