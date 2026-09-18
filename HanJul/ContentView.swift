@@ -69,11 +69,24 @@ struct ContentView: View {
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 10) {
                             ForEach(favorites) { favorite in
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(favorite.text)
-                                    Text(favorite.author)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
+                                HStack(alignment: .top) {
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(favorite.text)
+                                        Text(favorite.author)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+
+                                    Spacer()
+
+                                    Button {
+                                        modelContext.delete(favorite)
+                                        Task { await AnalyticsService.track(.favoriteToggle) }
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
+                                    .buttonStyle(.borderless)
+                                    .accessibilityLabel("즐겨찾기 삭제")
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             }
