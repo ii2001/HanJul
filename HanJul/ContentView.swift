@@ -2,6 +2,7 @@ import AppKit
 import OSLog
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct ContentView: View {
     private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "HanJul", category: "app")
@@ -12,6 +13,8 @@ struct ContentView: View {
     @AppStorage("notificationHour") private var notificationHour = 9
     @AppStorage("notificationMinute") private var notificationMinute = 0
     @AppStorage("analyticsEnabled") private var analyticsEnabled = false
+    @AppStorage(QuoteArtwork.preferenceKey, store: QuoteArtwork.defaults)
+    private var artworkRawValue = QuoteArtwork.daily.rawValue
 
     private let quote: Quote?
     private let loadError: String?
@@ -31,28 +34,46 @@ struct ContentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             if let quote {
-                Text(quote.text)
-                    .font(.title3.weight(.medium))
-                    .fixedSize(horizontal: false, vertical: true)
-                    .accessibilityLabel("명언: \(quote.text)")
+                ZStack {
+                    if let imageName = artwork.imageName(for: quote) {
+                        Image(imageName)
+                            .resizable()
+                            .scaledToFill()
+                            .accessibilityHidden(true)
 
-                Text("— \(quote.author)")
-                    .foregroundStyle(.secondary)
-
-                HStack {
-                    Button {
-                        toggleFavorite(quote)
-                    } label: {
-                        Label(isFavorite(quote) ? "즐겨찾기 해제" : "즐겨찾기", systemImage: isFavorite(quote) ? "heart.fill" : "heart")
+                        Color.white.opacity(0.56)
                     }
 
-                    Button {
-                        copy(quote)
-                    } label: {
-                        Label("복사", systemImage: "doc.on.doc")
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(quote.text)
+                            .font(.title3.weight(.medium))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .accessibilityLabel("명언: \(quote.text)")
+
+                        Text("— \(quote.author)")
+                            .foregroundStyle(.black.opacity(0.65))
+
+                        HStack {
+                            Button {
+                                toggleFavorite(quote)
+                            } label: {
+                                Label(isFavorite(quote) ? "즐겨찾기 해제" : "즐겨찾기", systemImage: isFavorite(quote) ? "heart.fill" : "heart")
+                            }
+
+                            Button {
+                                copy(quote)
+                            } label: {
+                                Label("복사", systemImage: "doc.on.doc")
+                            }
+                        }
+                        .buttonStyle(.borderless)
                     }
+                    .padding(16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(.black.opacity(0.82))
                 }
-                .buttonStyle(.borderless)
+                .frame(minHeight: 170)
+                .clipShape(.rect(cornerRadius: 14))
             } else {
                 Label(loadError ?? "알 수 없는 오류가 발생했습니다.", systemImage: "exclamationmark.triangle")
                     .foregroundStyle(.red)
@@ -107,6 +128,15 @@ struct ContentView: View {
 
             Toggle("익명 사용 통계", isOn: analyticsBinding)
 
+            Picker("배경 이미지", selection: $artworkRawValue) {
+                ForEach(QuoteArtwork.allCases) { artwork in
+                    Text(artwork.title).tag(artwork.rawValue)
+                }
+            }
+            .onChange(of: artworkRawValue) {
+                WidgetCenter.shared.reloadTimelines(ofKind: "HanJulWidget")
+            }
+
             Text("명언 내용과 개인 식별 정보는 전송하지 않습니다.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -121,6 +151,10 @@ struct ContentView: View {
         }
         .padding(18)
         .frame(width: 360)
+    }
+
+    private var artwork: QuoteArtwork {
+        QuoteArtwork(rawValue: artworkRawValue) ?? .daily
     }
 
     private var notificationBinding: Binding<Bool> {

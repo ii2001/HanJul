@@ -27,4 +27,14 @@ final class DailyQuoteServiceTests: XCTestCase {
 
         XCTAssertEqual(service.quote(for: date).id, "4")
     }
+
+    func test_artworkSelectionIsDeterministic() {
+        let quote = Quote(id: "same-quote", text: "명언", author: "작가")
+
+        XCTAssertEqual(
+            QuoteArtwork.daily.imageName(for: quote),
+            QuoteArtwork.daily.imageName(for: quote)
+        )
+        XCTAssertNotNil(QuoteArtwork.daily.imageName(for: quote))
+    }
 }

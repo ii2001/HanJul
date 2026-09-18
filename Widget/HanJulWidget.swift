@@ -43,22 +43,35 @@ private struct HanJulWidgetView: View {
     let entry: HanJulEntry
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Image(systemName: "quote.opening")
-                .foregroundStyle(.secondary)
+        ZStack {
+            if let imageName = QuoteArtwork.selected.imageName(for: entry.quote) {
+                Image(imageName)
+                    .resizable()
+                    .scaledToFill()
+                    .accessibilityHidden(true)
 
-            Text(entry.quote.text)
-                .font(.headline)
-                .lineLimit(4)
+                Color.white.opacity(0.58)
+            }
 
-            Spacer(minLength: 0)
+            VStack(alignment: .leading, spacing: 8) {
+                Image(systemName: "quote.opening")
+                    .foregroundStyle(.black.opacity(0.55))
 
-            Text(entry.quote.author)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                Text(entry.quote.text)
+                    .font(.headline)
+                    .lineLimit(4)
+
+                Spacer(minLength: 0)
+
+                Text(entry.quote.author)
+                    .font(.caption)
+                    .foregroundStyle(.black.opacity(0.6))
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .foregroundStyle(.black.opacity(0.82))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-        .containerBackground(.fill.tertiary, for: .widget)
+        .containerBackground(Color(nsColor: .windowBackgroundColor), for: .widget)
     }
 }
 
