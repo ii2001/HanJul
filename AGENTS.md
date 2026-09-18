@@ -41,6 +41,6 @@ Every commit message must use Gitmoji Conventional Commit format, for example `â
 
 ## Xcode Project Safety
 
-Do not hand-edit `project.pbxproj` unless explicitly requested. Add targets, signing, entitlements, App Groups, and capabilities through Xcode, and avoid committing `xcuserdata/` changes.
+Automate in-scope target, entitlement, and capability settings when needed. Keep `project.pbxproj` edits minimal, validate them with `xcodebuild`, never guess a signing team, and avoid committing `xcuserdata/` changes.
 
 Never add Supabase secret or `service_role` keys to the app. The bundled Publishable Key is constrained by RLS; anonymous analytics must remain opt-in and must not include quote text, favorites, or persistent user identifiers.

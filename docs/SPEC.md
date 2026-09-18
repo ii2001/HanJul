@@ -39,4 +39,4 @@ Widget/         WidgetKit extension
 
 ## Required Manual Xcode Setup
 
-The app, test, and widget targets support macOS 14 or newer. The widget shares deterministic quote code and bundled JSON with the app, so no App Group is required. Configure a Signing Team in Xcode before distribution; bundle identifiers are `com.ii2001.HanJul` and `com.ii2001.HanJul.Widget`.
+The app, test, and widget targets support macOS 14 or newer. Quote code and bundled resources are shared directly, while the selected artwork setting uses the `group.com.ii2001.HanJul` App Group. Configure a Signing Team in Xcode before distribution; bundle identifiers are `com.ii2001.HanJul` and `com.ii2001.HanJul.Widget`.

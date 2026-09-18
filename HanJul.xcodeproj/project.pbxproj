@@ -30,14 +30,12 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		400000000000000000000170 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstSubfolder = PlugIns;
 			files = (
 				400000000000000000000180 /* HanJulWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -78,17 +76,13 @@
 		};
 		300000000000000000000130 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		400000000000000000000130 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -128,6 +122,9 @@
 			);
 			buildRules = (
 			);
+			dependencies = (
+				400000000000000000000160 /* PBXTargetDependency */,
+			);
 			fileSystemSynchronizedGroups = (
 				000000000000000000000010 /* HanJul */,
 				200000000000000000000010 /* Shared */,
@@ -136,9 +133,6 @@
 			productName = HanJul;
 			productReference = 000000000000000000000120 /* HanJul.app */;
 			productType = "com.apple.product-type.application";
-			dependencies = (
-				400000000000000000000160 /* PBXTargetDependency */,
-			);
 		};
 		300000000000000000000100 /* HanJulTests */ = {
 			isa = PBXNativeTarget;
@@ -171,8 +165,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			fileSystemSynchronizedGroups = (
 				200000000000000000000010 /* Shared */,
 				400000000000000000000010 /* Widget */,
@@ -194,6 +186,11 @@
 				TargetAttributes = {
 					000000000000000100000000 = {
 						CreatedOnToolsVersion = 26.3;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups = {
+								enabled = 1;
+							};
+						};
 					};
 					300000000000000000000100 = {
 						CreatedOnToolsVersion = 26.3;
@@ -201,6 +198,11 @@
 					};
 					400000000000000000000100 = {
 						CreatedOnToolsVersion = 26.3;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -233,17 +235,13 @@
 		};
 		300000000000000000000140 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		400000000000000000000140 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
@@ -255,23 +253,27 @@
 		};
 		300000000000000000000121 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		400000000000000000000121 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		300000000000000000000160 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = 000000000000000100000000 /* HanJul */; targetProxy = 300000000000000000000150 /* PBXContainerItemProxy */; };
-		400000000000000000000160 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = 400000000000000000000100 /* HanJulWidget */; targetProxy = 400000000000000000000150 /* PBXContainerItemProxy */; };
+		300000000000000000000160 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* HanJul */;
+			targetProxy = 300000000000000000000150 /* PBXContainerItemProxy */;
+		};
+		400000000000000000000160 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 400000000000000000000100 /* HanJulWidget */;
+			targetProxy = 400000000000000000000150 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -410,6 +412,7 @@
 		000000000000000111000000 /* Debug configuration for PBXNativeTarget "HanJul" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/HanJul.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
@@ -448,6 +451,7 @@
 		000000000000000112000000 /* Release configuration for PBXNativeTarget "HanJul" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/HanJul.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
@@ -523,6 +527,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Config/HanJulWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -547,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Config/HanJulWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -592,7 +598,6 @@
 				300000000000000000000111 /* Debug configuration for PBXNativeTarget "HanJulTests" */,
 				300000000000000000000112 /* Release configuration for PBXNativeTarget "HanJulTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		400000000000000000000110 /* Build configuration list for PBXNativeTarget "HanJulWidget" */ = {
@@ -601,7 +606,6 @@
 				400000000000000000000111 /* Debug configuration for PBXNativeTarget "HanJulWidget" */,
 				400000000000000000000112 /* Release configuration for PBXNativeTarget "HanJulWidget" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
