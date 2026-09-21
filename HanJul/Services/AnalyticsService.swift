@@ -3,10 +3,27 @@ import OSLog
 
 enum AnalyticsEvent: String, Encodable {
     case appOpen = "app_open"
-    case favoriteToggle = "favorite_toggle"
-    case notificationToggle = "notification_toggle"
+    case favoriteAdd = "favorite_add"
+    case favoriteRemove = "favorite_remove"
+    case notificationEnable = "notification_enable"
+    case notificationDisable = "notification_disable"
+    case quoteNext = "quote_next"
     case musicPlay = "music_play"
     case musicPause = "music_pause"
+
+    static func favorite(isAdding: Bool) -> Self {
+        isAdding ? .favoriteAdd : .favoriteRemove
+    }
+
+    static func notification(requestedEnabled: Bool, actualEnabled: Bool) -> Self? {
+        guard requestedEnabled == actualEnabled else { return nil }
+        return requestedEnabled ? .notificationEnable : .notificationDisable
+    }
+
+    static func nextQuote(from index: Int, count: Int) -> (index: Int, event: Self)? {
+        guard index + 1 < count else { return nil }
+        return (index + 1, .quoteNext)
+    }
 }
 
 enum AnalyticsService {
@@ -54,11 +71,15 @@ enum AnalyticsService {
         return identifier
     }
 
-    static func track(_ event: AnalyticsEvent) async {
-        guard isEnabled() else { return }
+    static func track(
+        _ event: AnalyticsEvent,
+        defaults: UserDefaults = .standard,
+        send: (URLRequest) async throws -> (Data, URLResponse) = { try await URLSession.shared.data(for: $0) }
+    ) async {
+        guard isEnabled(defaults: defaults) else { return }
 
         do {
-            let (_, response) = try await URLSession.shared.data(for: makeRequest(for: event))
+            let (_, response) = try await send(makeRequest(for: event, defaults: defaults))
             guard let httpResponse = response as? HTTPURLResponse,
                   (200..<300).contains(httpResponse.statusCode) else {
                 throw URLError(.badServerResponse)

@@ -76,7 +76,10 @@ struct ContentView: View {
 
                             if quoteIndex + 1 < dailyQuotes.count {
                                 Button {
-                                    quoteIndex += 1
+                                    if let next = AnalyticsEvent.nextQuote(from: quoteIndex, count: dailyQuotes.count) {
+                                        quoteIndex = next.index
+                                        Task { await AnalyticsService.track(next.event) }
+                                    }
                                 } label: {
                                     Label("다른 명언", systemImage: "arrow.right")
                                 }
@@ -147,7 +150,7 @@ struct ContentView: View {
 
                                     Button {
                                         modelContext.delete(favorite)
-                                        Task { await AnalyticsService.track(.favoriteToggle) }
+                                        Task { await AnalyticsService.track(.favoriteRemove) }
                                     } label: {
                                         Image(systemName: "trash")
                                     }
@@ -254,12 +257,13 @@ struct ContentView: View {
     }
 
     private func toggleFavorite(_ quote: Quote) {
-        if let favorite = favorites.first(where: { $0.quoteID == quote.id }) {
+        let favorite = favorites.first(where: { $0.quoteID == quote.id })
+        if let favorite {
             modelContext.delete(favorite)
         } else {
             modelContext.insert(FavoriteQuote(quote: quote))
         }
-        Task { await AnalyticsService.track(.favoriteToggle) }
+        Task { await AnalyticsService.track(.favorite(isAdding: favorite == nil)) }
     }
 
     private func copy(_ quote: Quote) {
@@ -285,8 +289,12 @@ struct ContentView: View {
                 hour: notificationHour,
                 minute: notificationMinute
             )
-            if trackEvent {
-                await AnalyticsService.track(.notificationToggle)
+            if trackEvent,
+               let event = AnalyticsEvent.notification(
+                requestedEnabled: enabled,
+                actualEnabled: notificationEnabled
+               ) {
+                await AnalyticsService.track(event)
             }
         } catch {
             notificationEnabled = false
